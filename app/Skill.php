@@ -13,6 +13,6 @@ class Skill extends Model
 
     public function cv()
     {
-        $this->belongsToMany('App/Cv');
+        $this->belongsToMany(Cv::class);
     }
 }

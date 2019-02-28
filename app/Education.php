@@ -13,11 +13,11 @@ class Education extends Model
 
     public function cv()
     {
-        $this->belongsTo('App/Cv');
+        $this->belongsTo(Cv::class);
     }
 
     public function school()
     {
-        $this->belongsTo('App/School');
+        $this->belongsTo(School::class);
     }
 }

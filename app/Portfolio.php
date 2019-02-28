@@ -14,6 +14,6 @@ class Portfolio extends Model
 
     public function cv()
     {
-        $this->belongsTo('App/Cv');
+        $this->belongsTo(Cv::class);
     }
 }

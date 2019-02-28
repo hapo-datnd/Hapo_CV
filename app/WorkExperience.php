@@ -13,11 +13,11 @@ class WorkExperience extends Model
 
     public function cv()
     {
-        $this->belongsTo('App/Cv');
+        $this->belongsTo(Cv::class);
     }
 
     public function company()
     {
-        $this->belongsTo('App/Company');
+        $this->belongsTo(Company::class);
     }
 }

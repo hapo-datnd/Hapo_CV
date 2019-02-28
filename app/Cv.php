@@ -15,31 +15,31 @@ class Cv extends Model
 
     public function workExperiences()
     {
-        $this->hasMany('App/WorkExperience');
+        $this->hasMany(WorkExperience::class);
     }
 
     public function education()
     {
-        $this->hasMany('App/Education');
+        $this->hasMany(Education::class);
     }
 
     public function portfolios()
     {
-        $this->hasMany('App/Portfolio');
+        $this->hasMany(Portfolio::class);
     }
 
     public function references()
     {
-        $this->hasMany('App/Reference');
+        $this->hasMany(Reference::class);
     }
 
     public function skill()
     {
-        $this->belongsToMany('App/Skill');
+        $this->belongsToMany(Skill::class);
     }
 
     public function user()
     {
-        $this->belongsTo('App/User');
+        $this->belongsTo(User::class);
     }
 }

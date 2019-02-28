@@ -14,6 +14,6 @@ class School extends Model
 
     public function education()
     {
-        $this->hasMany('App/Education');
+        $this->hasMany(Education::class);
     }
 }

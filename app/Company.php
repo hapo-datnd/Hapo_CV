@@ -13,6 +13,6 @@ class Company extends Model
 
     public function workExperiences()
     {
-        $this->hasMany('App/WorkExperience');
+        $this->hasMany(WorkExperience::class);
     }
 }
