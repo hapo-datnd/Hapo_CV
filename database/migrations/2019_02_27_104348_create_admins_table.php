@@ -11,12 +11,14 @@ class CreateAdminsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
+        Schema::defaultStringLength(191);
         Schema::create('admins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
             $table->integer('type');
             $table->timestamps();

@@ -13,7 +13,7 @@ class Cv extends Model
         'work_experience_title','education_title',
     ];
 
-    public function workExperience()
+    public function workExperiences()
     {
         $this->hasMany('App/WorkExperience');
     }
@@ -23,12 +23,12 @@ class Cv extends Model
         $this->hasMany('App/Education');
     }
 
-    public function portfolio()
+    public function portfolios()
     {
         $this->hasMany('App/Portfolio');
     }
 
-    public function reference()
+    public function references()
     {
         $this->hasMany('App/Reference');
     }

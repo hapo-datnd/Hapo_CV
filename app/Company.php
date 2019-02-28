@@ -11,7 +11,7 @@ class Company extends Model
         'name', 'adress', 'is_verified',
     ];
 
-    public function workExperience()
+    public function workExperiences()
     {
         $this->hasMany('App/WorkExperience');
     }
