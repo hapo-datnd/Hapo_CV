@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const CANDIDATE = 1;
+    const HR = 2;
+
     /**
      * The attributes that are mass assignable.
      *

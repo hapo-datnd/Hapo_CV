@@ -61,10 +61,5 @@ class LoginController extends Controller
             Auth::guard('user')->logout();
             return redirect()->route('home');
         }
-        elseif(Auth::guard('admin')->check())
-        {
-            Auth::guard('admin')->logout();
-            return redirect()->route('admin');
-        }
     }
 }

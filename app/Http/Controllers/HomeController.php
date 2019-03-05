@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -13,10 +14,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth:user');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:user');
+//    }
 
     /**
      * Show the application dashboard.
@@ -25,7 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (Auth::guard('user')->check())
+        {
+            return view('home');
+        }
+        elseif(!Auth::guard('user')->check())
+        {
+            return redirect()->route('user_login_form');
+        }
+
     }
 
 //    public function  indexAdmin()

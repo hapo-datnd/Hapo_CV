@@ -38,7 +38,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@indexAdmin')->name('admin');
     Route::get('/login','Auth\AdminLoginController@showAdminLoginForm')->middleware('guest:admin')->name('admin_login_form');
     Route::post('/login','Auth\AdminLoginController@adminLogin')->middleware('guest:admin')->name('admin_login');
-    Route::get('/add','Auth\AdminLoginController@addAdmin')->name('add_admin');
+//    Route::get('/add','Auth\AdminLoginController@addAdmin')->name('add_admin');
     Route::get('/create','AdminController@create')->name('create_admin');
     Route::post('/store','AdminController@store')->name('store_admin');
     Route::delete('/destroy_user/{user}','AdminController@destroyUser')->name('admin.destroy_user');
@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/change_password/{id}','AdminController@getChangePassword')->name('admin.change_password');
     Route::patch('/change_password/{id}','AdminController@patchChangePassword')->name('update_password_admin');
     Route::patch('/update_type_user/{id}','AdminController@patchUpdateTypeUser')->name('update_type_user');
+    Route::post('/logout','Auth\AdminLoginController@logout')->name('logout_admin');
 });
 
 

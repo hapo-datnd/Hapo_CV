@@ -11,6 +11,9 @@ class Admin extends Authenticatable
 
     use Notifiable;
 
+    const ADMIN = 2;
+    const SUPER_ADMIN = 1;
+
     protected $guard = 'admin';
 
     protected $fillable = [

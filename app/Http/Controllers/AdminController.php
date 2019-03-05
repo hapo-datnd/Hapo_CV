@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Http\Requests\CreateAdminRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,16 +17,29 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth:admin');
+//    }
 
     public function  indexAdmin()
     {
-        $users = User::paginate(5);
-        $admins = Admin::paginate(5);
-        return view('admin',compact('users','admins'));
+        if (Auth::guard('admin')->check())
+        {
+//            $this->middleware('auth:admin');
+            $users = User::paginate(5);
+            $admins = Admin::paginate(5);
+            $id = Auth::guard('admin')->id();
+            $adminNow = Admin::findOrFail($id);
+            return view('admin',compact('users','admins','adminNow'));
+//            return $adminNow;
+//            return $adminNow->name;
+        }
+        elseif(!Auth::guard('admin')->check())
+        {
+            return redirect()->route('admin_login_form');
+        }
+
     }
 
     public function index()
@@ -43,7 +57,7 @@ class AdminController extends Controller
     {
         if (Auth::guard('admin')->check())
         {
-            return view('auth/admin/add_admin');
+            return view('auth.admin.create_admin');
         }
         elseif(!Auth::guard('admin')->check())
         {
@@ -65,7 +79,7 @@ class AdminController extends Controller
         $admin->name = $request->name;
         $admin->email = $request->email;
         $admin->password = Hash::make($request->password);
-        $admin->type = 2;
+        $admin->type = Admin::ADMIN;
         $admin->save();
         return redirect()->route('admin');
     }
@@ -124,7 +138,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->type = $request->type;
         $user->save();
-        return redirect()->route('admin')->with('message','Bạn đã thay đổi quyền của User thành công!');
+        return redirect()->route('admin')->with('message','Bạn đã thay đổi quyền của '.$user->name.' thành công!');
     }
 
     public function edit($id)

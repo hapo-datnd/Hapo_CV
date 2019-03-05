@@ -5,10 +5,6 @@
  * Date: 3/1/2019
  * Time: 3:25 PM
  */
-define('CANDIDATE',1);
-define('HR',2);
-define('SUPER_ADMIN',1);
-define('ADMIN',2);
 ?>
 @extends('layouts.app_admin')
 
@@ -38,16 +34,16 @@ define('ADMIN',2);
                         <td>{{$admin->name}}</td>
                         <td>{{$admin->email}}</td>
                         <td>
-                            @if($admin->type === SUPER_ADMIN)
+                            @if($admin->type === $admin::SUPER_ADMIN )
                                 Super Admin
-                            @elseif($admin->type === ADMIN)
+                            @elseif($admin->type === $admin::ADMIN)
                                 Admin
                             @endif
                         </td>
                         <td class="justify-content-center flex align-content-around">
                             {{--<a href="users/{{$admin->id}}/edit"><button type="button" class="btn btn-outline-primary">Save</button></a>--}}
-                            @if(Auth::user()->type === SUPER_ADMIN)
-                                @if($admin->type === ADMIN)
+                            @if($adminNow->type === $admin::SUPER_ADMIN)
+                                @if($admin->type === $admin::ADMIN)
                                     <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#myAdminModal{{$admin->id}}"> Delete </button>
                                     <div class="modal" id="myAdminModal{{$admin->id}}">
                                         <div class="modal-dialog">
@@ -105,8 +101,8 @@ define('ADMIN',2);
                                 @method('PATCH')
                                 @csrf
                                 <select class="form-control" name="type" id="type">
-                                    <option @if($user->type === CANDIDATE) selected="selected" @endif value="1">Candidate</option>
-                                    <option @if($user->type === HR) selected="selected" @endif value="2">HR</option>
+                                    <option @if($user->type === $user::CANDIDATE) selected="selected" @endif value="{{$user::CANDIDATE}}">Candidate</option>
+                                    <option @if($user->type === $user::HR) selected="selected" @endif value="{{$user::HR}}">HR</option>
                                 </select>
                             </form>
                         </td>
@@ -156,20 +152,20 @@ define('ADMIN',2);
     @elseif(Auth::guard('admin')->check())
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name}} <span class="caret"></span>
+                {{ $adminNow->name}} <span class="caret"></span>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                @if(Auth::user()->type === 1)
+                @if($adminNow->type === 1)
                 <a class="dropdown-item" href="{{ route('create_admin') }}">{{ __('Create admin') }}</a>
                 @endif
-                <a class="dropdown-item" href="{{ route('admin.change_password',Auth::id()) }}">{{ __('Change password') }}</a>
-                <a class="dropdown-item" href="{{ route('logout') }}"
+                <a class="dropdown-item" href="{{ route('admin.change_password',$adminNow->id) }}">{{ __('Change password') }}</a>
+                <a class="dropdown-item" href="{{ route('logout_admin') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout_admin') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </div>
